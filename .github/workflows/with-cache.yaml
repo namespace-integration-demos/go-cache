@@ -1,0 +1,30 @@
+name: example-with-cache
+on: [push, workflow_dispatch]
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
+jobs:
+  run-with-cache:
+    runs-on:
+      - namespace-profile-amd64-with-caching
+    name: Sample with cache
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.20.x
+          cache: false
+
+      - name: Set up cache
+        uses: namespacelabs/nscloud-cache-action@v1
+        with:
+          cache: go
+
+      - name: Test
+        run: |
+          go test ./...
