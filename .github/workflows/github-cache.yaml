@@ -1,0 +1,21 @@
+name: example-with-github-cache
+on: [push, workflow_dispatch]
+
+jobs:
+  run-with-github-cache:
+    runs-on:
+      - ubuntu-latest
+    name: Sample with cache
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.20.x
+          cache: true
+
+      - name: Test
+        run: |
+          go test ./...
