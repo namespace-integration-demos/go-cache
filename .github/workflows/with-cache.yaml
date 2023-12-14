@@ -8,6 +8,7 @@ permissions:
 jobs:
   run-with-cache:
     runs-on:
+      # Replace with your profile label https://namespace.so/docs/features/faster-github-actions#using-runner-profiles
       - namespace-profile-amd64-with-caching
     name: Sample with cache
     steps:
